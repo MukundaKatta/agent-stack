@@ -64,8 +64,7 @@ pre code { background: none; padding: 0; color: var(--fg); }
 .btn-primary:hover { background: #e0b870; text-decoration: none; }
 .btn-secondary { background: transparent; color: var(--accent); }
 .btn-secondary:hover { background: rgba(212, 168, 83, 0.1); text-decoration: none; }
-.oneline { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-@media (max-width: 760px) { .oneline { white-space: normal; } }
+.oneline { max-width: 640px; margin-left: auto; margin-right: auto; }
 
 .badges { margin-top: 2rem; display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
 .badges img { vertical-align: middle; }

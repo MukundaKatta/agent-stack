@@ -66,6 +66,9 @@ pre code { background: none; padding: 0; color: var(--fg); }
 .btn-secondary:hover { background: rgba(212, 168, 83, 0.1); text-decoration: none; }
 .ctas { align-items: center; }
 
+.oneline { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 760px) { .oneline { white-space: normal; } }
+
 .badges { margin-top: 2rem; display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
 .badges img { vertical-align: middle; }
 
@@ -268,7 +271,7 @@ npx -y @mukundakatta/agentcast-mcp    # extract + validate JSON from LLM text</c
 <section id="cta">
   <div class="container" style="text-align: center;">
     <h2>Stay in the loop</h2>
-    <p>Follow on <a href="https://x.com/katta_mukunda">X</a>, <a href="https://www.linkedin.com/in/mukunda-katta-728155220/">LinkedIn</a>, and ⭐ the repos on <a href="https://github.com/MukundaKatta">GitHub</a> for release notes, design notes, and the v0.2 roadmap.</p>
+    <p class="oneline">Follow on <a href="https://x.com/katta_mukunda">X</a>, <a href="https://www.linkedin.com/in/mukunda-katta-728155220/">LinkedIn</a>, ⭐ on <a href="https://github.com/MukundaKatta">GitHub</a> — release notes, design notes, v0.2 roadmap.</p>
     <div class="ctas" style="justify-content: center;">
       <a class="btn btn-primary" href="https://github.com/MukundaKatta">Star on GitHub</a>
       <a class="btn btn-secondary" href="https://github.com/sponsors/MukundaKatta">Sponsor</a>

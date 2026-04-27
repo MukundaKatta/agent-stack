@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Agent Reliability Stack — agentfit · agentguard · agentsnap · agentvet · agentcast</title>
+<meta name="description" content="Five small, focused libraries that fix the boring problems every long-running AI agent eventually hits. Available on npm and PyPI, plus 6 MCP servers in the official Model Context Protocol Registry." />
+<meta property="og:title" content="The Agent Reliability Stack" />
+<meta property="og:description" content="Five small libraries — fit · guard · snap · vet · cast. npm + PyPI + MCP Registry." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<style>
+:root {
+  --bg: #0d1117;
+  --bg-2: #161b22;
+  --border: #30363d;
+  --fg: #c9d1d9;
+  --fg-2: #8b949e;
+  --accent: #d4a853;
+  --code-bg: #1a1a1a;
+  --link: #58a6ff;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  font-size: 16px;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+code { background: var(--code-bg); color: var(--accent); padding: 0.1em 0.35em; border-radius: 3px; font-size: 0.92em; }
+pre { background: var(--code-bg); padding: 1em 1.25em; border-radius: 6px; overflow-x: auto; font-size: 0.88em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: var(--fg); }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+.hero { padding: 6rem 0 4rem; text-align: center; border-bottom: 1px solid var(--border); }
+.hero h1 { font-size: 2.6rem; margin: 0 0 0.5rem; line-height: 1.15; color: var(--accent); font-weight: 700; }
+.hero .pipeline { font-size: 1.1rem; color: var(--fg-2); margin: 0 0 1.5rem; letter-spacing: 0.02em; }
+.hero .pipeline code { font-size: 1em; }
+.hero p.lede { font-size: 1.15rem; color: var(--fg); max-width: 640px; margin: 0 auto 2rem; }
+.hero .ctas { display: inline-flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+.btn { display: inline-block; padding: 0.7em 1.4em; border-radius: 6px; font-weight: 600; font-size: 0.95rem; transition: all 0.15s; border: 1px solid var(--accent); }
+.btn-primary { background: var(--accent); color: #0d1117; }
+.btn-primary:hover { background: #e0b870; text-decoration: none; }
+.btn-secondary { background: transparent; color: var(--accent); }
+.btn-secondary:hover { background: rgba(212, 168, 83, 0.1); text-decoration: none; }
+
+.badges { margin-top: 2rem; display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.badges img { vertical-align: middle; }
+
+section { padding: 4rem 0; border-bottom: 1px solid var(--border); }
+section h2 { font-size: 1.8rem; margin: 0 0 0.5rem; color: var(--accent); }
+section h2 + p { color: var(--fg-2); margin-top: 0; max-width: 720px; }
+
+.cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-top: 2rem; }
+@media (max-width: 900px) { .cards { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .cards { grid-template-columns: 1fr; } }
+.card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; transition: border-color 0.15s; }
+.card:hover { border-color: var(--accent); }
+.card h3 { margin: 0 0 0.25rem; font-size: 1.1rem; color: var(--accent); font-family: ui-monospace, monospace; }
+.card .tag { display: inline-block; font-size: 0.75rem; color: var(--fg-2); margin-bottom: 0.6rem; font-style: italic; }
+.card p { margin: 0 0 0.6rem; font-size: 0.9rem; color: var(--fg); }
+.card .links { display: flex; gap: 0.6rem; font-size: 0.8rem; }
+
+.install { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+@media (max-width: 700px) { .install { grid-template-columns: 1fr; } }
+.install-col h3 { margin: 0 0 0.75rem; font-size: 1.05rem; color: var(--fg); }
+
+.why { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+@media (max-width: 800px) { .why { grid-template-columns: 1fr; } }
+.why .item { background: var(--bg-2); border: 1px solid var(--border); padding: 1.5rem; border-radius: 8px; }
+.why .item h3 { margin: 0 0 0.5rem; color: var(--accent); font-size: 1.1rem; }
+
+.metrics { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; padding: 2rem 0; }
+.metric { text-align: center; }
+.metric .num { font-size: 2.4rem; font-weight: 700; color: var(--accent); display: block; line-height: 1; }
+.metric .lbl { font-size: 0.8rem; color: var(--fg-2); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.4rem; display: block; }
+
+footer { padding: 3rem 0; text-align: center; color: var(--fg-2); font-size: 0.9rem; }
+footer p { margin: 0.4rem 0; }
+footer a { color: var(--fg-2); }
+footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <h1>The Agent Reliability Stack</h1>
+    <p class="pipeline"><code>fit</code> → <code>guard</code> → <code>snap</code> → <code>vet</code> → <code>cast</code></p>
+    <p class="lede">Five small, focused libraries that fix the boring problems every long-running AI agent eventually hits. Pure JavaScript or pure Python. Zero runtime dependencies. BYO LLM.</p>
+
+    <div class="ctas">
+      <a class="btn btn-primary" href="#install">Install</a>
+      <a class="btn btn-secondary" href="https://github.com/MukundaKatta?tab=repositories&q=agent">GitHub</a>
+      <a class="btn btn-secondary" href="https://github.com/sponsors/MukundaKatta">Sponsor</a>
+    </div>
+
+    <div class="badges">
+      <a href="https://www.npmjs.com/~mukundakatta"><img alt="npm" src="https://img.shields.io/badge/npm-52%20packages-D4A853?style=flat-square&logo=npm&labelColor=1a1a1a" /></a>
+      <a href="https://pypi.org/user/mukundakatta/"><img alt="PyPI" src="https://img.shields.io/badge/PyPI-52%20packages-D4A853?style=flat-square&logo=pypi&labelColor=1a1a1a" /></a>
+      <a href="https://registry.modelcontextprotocol.io"><img alt="MCP Registry" src="https://img.shields.io/badge/MCP%20Registry-6%20servers-D4A853?style=flat-square&labelColor=1a1a1a" /></a>
+      <a href="https://github.com/marketplace?query=mukundakatta"><img alt="GH Marketplace" src="https://img.shields.io/badge/GitHub%20Marketplace-7%20Actions-D4A853?style=flat-square&logo=github&labelColor=1a1a1a" /></a>
+    </div>
+  </div>
+</div>
+
+<section id="cards">
+  <div class="container">
+    <h2>Five libraries, one pipeline</h2>
+    <p>Each library solves a single concrete reliability problem. Pick the ones you need — they share no state and are deliberately uncoupled.</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>agentfit</h3>
+        <span class="tag">Fit it.</span>
+        <p>Token-aware message truncation. Fit a chat history into the model's context budget with drop-oldest, drop-middle, or priority strategies.</p>
+        <div class="links">
+          <a href="https://www.npmjs.com/package/@mukundakatta/agentfit">npm</a>
+          <a href="https://pypi.org/project/agentfit-py/">PyPI</a>
+          <a href="https://www.npmjs.com/package/@mukundakatta/agentfit-mcp">MCP</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>agentguard</h3>
+        <span class="tag">Sandbox it.</span>
+        <p>Network-egress firewall for agent tools. A declarative allowlist of domains your tools can fetch. Throws on violation.</p>
+        <div class="links">
+          <a href="https://www.npmjs.com/package/@mukundakatta/agentguard">npm</a>
+          <a href="https://pypi.org/project/agentguard-firewall/">PyPI</a>
+          <a href="https://www.npmjs.com/package/@mukundakatta/agentguard-mcp">MCP</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>agentsnap</h3>
+        <span class="tag">Test it.</span>
+        <p>Snapshot tests for tool-call traces. Catch silent regressions in LLM tool use the way you catch UI regressions today.</p>
+        <div class="links">
+          <a href="https://www.npmjs.com/package/@mukundakatta/agentsnap">npm</a>
+          <a href="https://pypi.org/project/agentsnap-py/">PyPI</a>
+          <a href="https://www.npmjs.com/package/@mukundakatta/agentsnap-mcp">MCP</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>agentvet</h3>
+        <span class="tag">Vet it.</span>
+        <p>Validate tool args before execution. Wrap any tool function. On bad args, throws a typed error with an LLM-friendly retry hint.</p>
+        <div class="links">
+          <a href="https://www.npmjs.com/package/@mukundakatta/agentvet">npm</a>
+          <a href="https://pypi.org/project/agentvet-py/">PyPI</a>
+          <a href="https://www.npmjs.com/package/@mukundakatta/agentvet-mcp">MCP</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>agentcast</h3>
+        <span class="tag">Validate it.</span>
+        <p>Structured-output enforcer. Validate, retry with the validation error as feedback, return typed data or throw after N tries.</p>
+        <div class="links">
+          <a href="https://www.npmjs.com/package/@mukundakatta/agentcast">npm</a>
+          <a href="https://pypi.org/project/agentcast-py/">PyPI</a>
+          <a href="https://www.npmjs.com/package/@mukundakatta/agentcast-mcp">MCP</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="container">
+    <h2>Install in 5 seconds</h2>
+    <p>Bring your own LLM. Zero runtime dependencies. TypeScript types ship in the box on npm.</p>
+
+    <div class="install">
+      <div class="install-col">
+        <h3>📦 npm — one install for the whole stack</h3>
+<pre><code>npm install @mukundakatta/agentkit</code></pre>
+        <p>Or pick what you need:</p>
+<pre><code>npm install @mukundakatta/agentfit
+npm install @mukundakatta/agentguard
+npm install @mukundakatta/agentsnap
+npm install @mukundakatta/agentvet
+npm install @mukundakatta/agentcast</code></pre>
+      </div>
+
+      <div class="install-col">
+        <h3>🐍 PyPI — one install for the whole stack</h3>
+<pre><code>pip install mk-agentkit</code></pre>
+        <p>Or pick what you need:</p>
+<pre><code>pip install agentfit-py
+pip install agentguard-firewall
+pip install agentsnap-py
+pip install agentvet-py
+pip install agentcast-py</code></pre>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 2.5rem;">🤖 Or use them inside Claude / Cursor / Cline / Windsurf / Zed</h3>
+    <p>Each library also ships as an MCP server, listed in the <a href="https://registry.modelcontextprotocol.io">official MCP Registry</a>:</p>
+<pre><code>npx -y @mukundakatta/agentfit-mcp     # token counting + history fitting
+npx -y @mukundakatta/agentguard-mcp   # URL-allowlist checks
+npx -y @mukundakatta/agentsnap-mcp    # diff tool-call traces
+npx -y @mukundakatta/agentvet-mcp     # validate tool args
+npx -y @mukundakatta/agentcast-mcp    # extract + validate JSON from LLM text</code></pre>
+  </div>
+</section>
+
+<section id="why">
+  <div class="container">
+    <h2>Why this exists</h2>
+    <p>Every long-running agent eventually hits the same problems. They get hand-rolled in a hundred codebases. Each library here is the one I wished existed.</p>
+
+    <div class="why">
+      <div class="item">
+        <h3>Small, focused</h3>
+        <p>Each package does one thing. No framework lock-in. Zero runtime dependencies. You compose them like Unix pipes.</p>
+      </div>
+      <div class="item">
+        <h3>BYO LLM</h3>
+        <p>Works with OpenAI, Anthropic, Google, Llama, vLLM, Ollama, anything else. The libraries don't care which model you use.</p>
+      </div>
+      <div class="item">
+        <h3>Same API in npm + PyPI</h3>
+        <p>Pick TypeScript or Python. Move between them without re-learning the surface. Every primitive ports across.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="metrics">
+  <div class="container">
+    <h2>Reach</h2>
+    <p>The 117-package ecosystem ships across four registries.</p>
+    <div class="metrics">
+      <div class="metric"><span class="num">52</span><span class="lbl">npm</span></div>
+      <div class="metric"><span class="num">52</span><span class="lbl">PyPI</span></div>
+      <div class="metric"><span class="num">6</span><span class="lbl">MCP Registry</span></div>
+      <div class="metric"><span class="num">7</span><span class="lbl">GH Actions</span></div>
+      <div class="metric"><span class="num">40+</span><span class="lbl">Upstream PRs</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="container" style="text-align: center;">
+    <h2>Stay in the loop</h2>
+    <p>Follow on <a href="https://x.com/katta_mukunda">X</a>, <a href="https://www.linkedin.com/in/mukunda-katta-728155220/">LinkedIn</a>, and ⭐ the repos on <a href="https://github.com/MukundaKatta">GitHub</a> for release notes, design notes, and the v0.2 roadmap.</p>
+    <div class="ctas" style="justify-content: center;">
+      <a class="btn btn-primary" href="https://github.com/MukundaKatta">Star on GitHub</a>
+      <a class="btn btn-secondary" href="https://github.com/sponsors/MukundaKatta">Sponsor</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>Built and maintained by <a href="https://github.com/MukundaKatta">Mukunda Rao Katta</a> · MIT licensed across the board · Open to opportunities</p>
+    <p><a href="https://mukunda-ai.vercel.app">Portfolio</a> · <a href="mailto:mukunda.vjcs6@gmail.com">Email</a> · <a href="https://x.com/katta_mukunda">X</a> · <a href="https://www.linkedin.com/in/mukunda-katta-728155220/">LinkedIn</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Agent Reliability Stack — agentfit · agentguard · agentsnap · agentvet · agentcast</title>
+<title>The Agent Reliability Stack — agentfit · agentguard · agentsnap · agentvet · agentcast · agentbudget</title>
 <meta name="description" content="Five small, focused libraries that fix the boring problems every long-running AI agent eventually hits. Available on npm and PyPI, plus 6 MCP servers in the official Model Context Protocol Registry." />
 <meta property="og:title" content="The Agent Reliability Stack" />
 <meta property="og:description" content="Five small libraries — fit · guard · snap · vet · cast. npm + PyPI + MCP Registry." />
@@ -108,7 +108,7 @@ footer a:hover { color: var(--accent); }
 <div class="hero">
   <div class="container">
     <h1>The Agent Reliability Stack</h1>
-    <p class="pipeline"><code>fit</code> → <code>guard</code> → <code>snap</code> → <code>vet</code> → <code>cast</code></p>
+    <p class="pipeline"><code>fit</code> → <code>guard</code> → <code>snap</code> → <code>vet</code> → <code>cast</code> → <code>budget</code></p>
     <p class="lede">Five small, focused libraries that fix the boring problems every long-running AI agent eventually hits. Pure JavaScript or pure Python. Zero runtime dependencies. BYO LLM.</p>
 
     <div class="ctas">
@@ -129,7 +129,7 @@ footer a:hover { color: var(--accent); }
 
 <section id="cards">
   <div class="container">
-    <h2>Five libraries, one pipeline</h2>
+    <h2>Six libraries, one pipeline</h2>
     <p>Each library solves a single concrete reliability problem. Pick the ones you need — they share no state and are deliberately uncoupled.</p>
 
     <div class="cards">
@@ -187,6 +187,16 @@ footer a:hover { color: var(--accent); }
           <a href="https://www.npmjs.com/package/@mukundakatta/agentcast-mcp">MCP</a>
         </div>
       </div>
+
+      <div class="card">
+        <h3>agentbudget</h3>
+        <span class="tag">Cap it.</span>
+        <p>Token + dollar budget caps. Throws the moment an LLM call would push past your ceiling — catches runaway loops before the bill hits.</p>
+        <div class="links">
+          <a href="https://www.npmjs.com/package/@mukundakatta/agentbudget">npm</a>
+          <a href="https://github.com/MukundaKatta/AgentBudget">GitHub</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -205,7 +215,8 @@ footer a:hover { color: var(--accent); }
 npm install @mukundakatta/agentguard
 npm install @mukundakatta/agentsnap
 npm install @mukundakatta/agentvet
-npm install @mukundakatta/agentcast</code></pre>
+npm install @mukundakatta/agentcast
+npm install @mukundakatta/agentbudget</code></pre>
       </div>
 
       <div class="install-col">

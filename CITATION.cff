@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this library or the agent-stack as a whole, please cite the artifact paper."
+title: "agent-stack: Six Reliability Primitives for LLM Agents"
+authors:
+  - family-names: Katta
+    given-names: Mukunda Rao
+    orcid: "https://orcid.org/0009-0007-6071-3896"
+license: MIT
+url: "https://github.com/MukundaKatta/agent-stack"
+repository-code: "https://github.com/MukundaKatta/agent-stack"
+keywords:
+  - LLM agents
+  - reliability primitives
+  - Model Context Protocol
+  - npm
+  - PyPI
+  - production AI
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.20074702
+    description: Zenodo DOI for the agent-stack artifact paper
+  - type: doi
+    value: 10.57967/hf/8720
+    description: HuggingFace Hub DOI for the agent-stack model card
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Katta
+      given-names: Mukunda Rao
+      orcid: "https://orcid.org/0009-0007-6071-3896"
+  title: "Six Reliability Primitives for LLM Agents: An Artifact Pattern for Stackable, Single-Concern Libraries"
+  year: 2026
+  publisher:
+    name: Zenodo
+  doi: 10.5281/zenodo.20074702
+  url: "https://doi.org/10.5281/zenodo.20074702"

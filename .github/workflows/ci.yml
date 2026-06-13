@@ -1,0 +1,28 @@
+name: CI
+
+# Minimal, non-breaking CI for this static HTML site.
+# Validates the HTML markup on every push and pull request.
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  html-validate:
+    name: Validate HTML
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate HTML markup
+        run: npx --yes html-validate "**/*.html"
